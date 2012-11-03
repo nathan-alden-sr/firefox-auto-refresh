@@ -9,7 +9,7 @@ This small .NET console application will monitor a directory of your choice for 
 * .NET Framework 4.0
 
 ## Instructions
-1. Download a [ZIP file](https://github.com/NathanAlden/FirefoxAutoRefresh/blob/master/dist/FirefoxAutoRefresh.zip) containing application binaries and configuration
+1. Download a [ZIP file](https://github.com/NathanAlden/FirefoxAutoRefresh/blob/master/dist/FirefoxAutoRefresh.zip?raw=true) containing application binaries and configuration
 2. Extract the ZIP file anywhere you'd like
 3. Change configuration using the FirefoxAutoRefresh.exe.config file
 4. Run FirefoxAutoRefresh.exe
