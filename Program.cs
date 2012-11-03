@@ -10,8 +10,6 @@ namespace NathanAlden.FirefoxAutoRefresh
 	{
 		private static readonly HashSet<string> _changedPaths = new HashSet<string>();
 		private static readonly string _directory = ConfigurationManager.AppSettings["Directory"];
-		private static readonly string[] _filters = ConfigurationManager.AppSettings["Filters"].Split(';');
-		private static readonly string _host = ConfigurationManager.AppSettings["Host"];
 		private static readonly object _lockObject = new object();
 		private static readonly ushort _port = UInt16.Parse(ConfigurationManager.AppSettings["Port"]);
 		private static readonly Timer _timer = new Timer
@@ -20,10 +18,16 @@ namespace NathanAlden.FirefoxAutoRefresh
 			};
 		private static readonly HashSet<FileSystemWatcher> _watchers = new HashSet<FileSystemWatcher>();
 		private static TelnetClient _client;
+		private static string[] _filters = ConfigurationManager.AppSettings["Filters"].Split(new[] { ';', ',', '|' }, StringSplitOptions.RemoveEmptyEntries);
+		private static string _host = ConfigurationManager.AppSettings["Host"];
 		private static TimeSpan _refreshDelay = TimeSpan.FromMilliseconds(Int32.Parse(ConfigurationManager.AppSettings["RefreshDelayInMilliseconds"]));
 
 		private static void Main()
 		{
+			if (!ValidateConfiguration())
+			{
+				return;
+			}
 			ConfigureTimer();
 			AddWatchers();
 
@@ -55,6 +59,30 @@ namespace NathanAlden.FirefoxAutoRefresh
 			{
 				watcher.EnableRaisingEvents = false;
 			}
+		}
+
+		private static bool ValidateConfiguration()
+		{
+			if (_directory == null || !Directory.Exists(_directory))
+			{
+				Console.WriteLine("Invalid directory.");
+				return false;
+			}
+
+			if (_filters.Length == 0)
+			{
+				_filters = new[] { "*.*" };
+			}
+			if (String.IsNullOrWhiteSpace(_host))
+			{
+				_host = "127.0.0.1";
+			}
+			if (_refreshDelay < TimeSpan.Zero)
+			{
+				_refreshDelay = TimeSpan.Zero;
+			}
+
+			return true;
 		}
 
 		private static void ConfigureTimer()
