@@ -1,6 +1,8 @@
 # Firefox Auto Refresh
 This small .NET console application will monitor a directory of your choice for changes, then refresh Firefox when it detects them.
 
+![A screenshot of Firefox Auto Refresh in action](http://nathanalden.github.com/FirefoxAutoRefresh/screenshot.png "Screenshot")
+
 ## Prerequisites
 * [Firefox](http://www.mozilla.org/en-US/firefox/new/)
 * [MozRepl](https://addons.mozilla.org/en-us/firefox/addon/mozrepl/) add-on installed and enabled
