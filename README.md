@@ -35,3 +35,7 @@ The host on which the Firefox Telnet server is listening
 ### Port
 
 The port on which the Firefox Telnet server is listening
+
+### Beep On Refresh
+
+Determines whether the application beeps after Firefox is refreshed

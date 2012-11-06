@@ -8,6 +8,7 @@ namespace NathanAlden.FirefoxAutoRefresh
 {
 	internal static class Program
 	{
+		private static readonly bool _beepOnRefresh = Boolean.Parse(ConfigurationManager.AppSettings["BeepOnRefresh"]);
 		private static readonly HashSet<string> _changedPaths = new HashSet<string>();
 		private static readonly string _directory = ConfigurationManager.AppSettings["Directory"];
 		private static readonly object _lockObject = new object();
@@ -146,6 +147,10 @@ namespace NathanAlden.FirefoxAutoRefresh
 				}
 				_client.WriteBrowserReload();
 				Console.WriteLine("Browser refreshed");
+				if (_beepOnRefresh)
+				{
+					Console.Beep(800, 100);
+				}
 			}
 		}
 	}
